@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Req, Res } from "@nestjs/common";
-import { SchoolsService } from '../services/schools.service';
+import { Controller, Get, HttpCode, HttpStatus, Next, Post, Put, Req, Res } from "@nestjs/common";
+import { SchoolsService } from "src/schools/schools.service"; 
 import type { Request, Response } from "express";
-import { Logger } from "@nestjs/common";
+import { Logger} from "@nestjs/common";
 
 
 @Controller('schools')
@@ -30,5 +30,12 @@ export class SchoolsController {
 
         response.status(201)
                 .end("Created");
+    }
+
+    @Put('update/:id')
+    @HttpCode(HttpStatus.ACCEPTED)
+    updateSchool(@Req() request: Request, @Res() response: Response): Object  
+    {
+        return this.schoolsService.getSchool();
     }
 }
