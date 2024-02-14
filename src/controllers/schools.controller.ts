@@ -1,7 +1,8 @@
-import { Controller, Get, HttpCode, HttpStatus, Next, Post, Put, Req, Res } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Next, Post, Put, Query, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
 import { SchoolsService } from "src/schools/schools.service"; 
 import type { Request, Response } from "express";
 import { Logger} from "@nestjs/common";
+import SchoolCreateDTO from "src/Models/DTOs/SchoolCreateDTO";
 
 
 @Controller('schools')
@@ -23,13 +24,8 @@ export class SchoolsController {
     }
 
     @Post('create')
-    createSchool(@Req() request: Request, @Res() response: Response){
-        
-        const data = { name: request.body.name, promoterName: request.body.promoterName }        
+    createSchool(@Body() data: SchoolCreateDTO){
         this.internalData.push(data);
-
-        response.status(201)
-                .end("Created");
     }
 
     @Put('update/:id')
@@ -37,5 +33,10 @@ export class SchoolsController {
     updateSchool(@Req() request: Request, @Res() response: Response): Object  
     {
         return this.schoolsService.getSchool();
+    }
+
+    @Get('vellar')
+    getVellar(@Query('bose', new ValidationPipe({ transform: true })) boseLevel: string){
+        return [boseLevel];
     }
 }
