@@ -1,8 +1,9 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Next, Post, Put, Query, Req, Res, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Next, Post, Put, Query, Req, Res, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { SchoolsService } from "src/schools/schools.service"; 
 import type { Request, Response } from "express";
 import { Logger} from "@nestjs/common";
 import SchoolCreateDTO from "src/Models/DTOs/SchoolCreateDTO";
+import { AuthGuard } from "src/auth/auth.guard";
 
 
 @Controller('schools')
@@ -19,7 +20,9 @@ export class SchoolsController {
     }
 
     @Get('list')
+    @UseGuards(AuthGuard)
     listSchools(){
+        
         return this.internalData;
     }
 
