@@ -7,9 +7,4 @@ import { StfsController } from './stfs.controller';
   controllers: [StfsController],
   exports: [StfsService]
 })
-export class StfsModule {
-    constructor(private readonly stfsServices: StfsService) {
-        Logger.log("Initialized STFs Module, ready for use");
-        Logger.log(stfsServices.getStfs("8ed"));
-    }
-}
+export class StfsModule {}

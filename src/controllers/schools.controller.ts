@@ -4,6 +4,8 @@ import type { Request, Response } from "express";
 import { Logger} from "@nestjs/common";
 import SchoolCreateDTO from "src/Models/DTOs/SchoolCreateDTO";
 import { AuthGuard } from "src/auth/auth.guard";
+import { ConfigService } from "@nestjs/config";
+import { AppConfig, DatabaseConfig } from "src/configuration/DatabaseConfig";
 
 
 @Controller('schools')
@@ -11,7 +13,8 @@ export class SchoolsController {
 
     private readonly internalData: Array<Object> = [this.schoolsService.getSchool()];
 
-    constructor(private readonly schoolsService: SchoolsService) {}
+    constructor(private readonly schoolsService: SchoolsService,
+                private readonly configService: ConfigService<AppConfig>) {}
     
     @Get('get/:id')
     getSchool(@Req() request: Request){
@@ -20,9 +23,10 @@ export class SchoolsController {
     }
 
     @Get('list')
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     listSchools(){
-        
+        // Logger.log("Database Name is: " + this.configService.get<string>("DATABASE_USERNAME", "balala"))
+        Logger.log("DB Host is: " + this.configService.get<DatabaseConfig>('database')?.host)
         return this.internalData;
     }
 
