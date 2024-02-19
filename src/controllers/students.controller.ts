@@ -14,7 +14,7 @@ class StudentsController {
             return this.studentsService.listStudentsBySchool(schoolCode);
         }
 
-        throw new BadRequestException("School Code didn't have a correct value");
+        throw new BadRequestException("schoolcode didn't have a correct value");
     }
 }
 

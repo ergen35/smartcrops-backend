@@ -14,6 +14,10 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { UserModule } from './user/user.module';
 import { UsersService } from './user/user.service';
 import User from './Models/User';
+import { CacheModule } from '@nestjs/cache-manager';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { PlatoonService } from './platoon/platoon.service';
+import { Platoon } from './platoon/platoon';
 
 @Module({
   imports: [
@@ -35,7 +39,9 @@ import User from './Models/User';
         synchronize: true,
       }
     ),
-    UserModule,    
+    UserModule,  
+    CacheModule.register(),
+    EventEmitterModule.forRoot()
   ],
   controllers: [
     AppController,
@@ -47,7 +53,9 @@ import User from './Models/User';
     SchoolsService,
     StudentsService,
     CatsService,
-    UsersService
+    UsersService,
+    PlatoonService,
+    Platoon
   ],
   exports: [
 
