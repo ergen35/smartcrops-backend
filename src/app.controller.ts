@@ -1,4 +1,4 @@
-import { Body, Controller, ForbiddenException, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Get, Param, Query, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ParseIntPipe } from '@nestjs/common';
 import { StfsService } from './stfs/stfs.service';
@@ -8,8 +8,8 @@ export class AppController {
   constructor(private readonly appService: AppService, private readonly stfsService: StfsService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHello() {
+    return { message: this.appService.getHello()};
   }
 
   @Get('something/:gat')

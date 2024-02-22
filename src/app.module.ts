@@ -18,6 +18,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { PlatoonService } from './platoon/platoon.service';
 import { Platoon } from './platoon/platoon';
+import { GasolineController } from './gasoline/gasoline.controller';
 
 @Module({
   imports: [
@@ -32,21 +33,22 @@ import { Platoon } from './platoon/platoon';
         username: databaseConfig().database.username,
         password: databaseConfig().database.password,
         database: databaseConfig().database.name,
-        entities: [ User ],
+        entities: [User],
         autoLoadEntities: false, // when the app gets bigger
         logging: true,
         logger: 'advanced-console',
         synchronize: true,
       }
     ),
-    UserModule,  
+    UserModule,
     CacheModule.register(),
     EventEmitterModule.forRoot()
   ],
   controllers: [
     AppController,
     SchoolsController,
-    StudentsController
+    StudentsController,
+    GasolineController
   ],
   providers: [
     AppService,
